@@ -5,298 +5,294 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#090711">
-<meta name="description" content="VraiCheck AI vous aide à repérer les indices de fraude dans les SMS et messages suspects.">
 <title>VraiCheck AI — Détecteur de messages suspects</title>
 <style>
 :root {
   --bg:#090711;
-  --panel:#141020;
-  --purple:#8b5cf6;
-  --light:#c4b5fd;
-  --text:#f5f3ff;
-  --muted:#b5adc8;
-  --border:#302443;
+  --panel:#131020;
+  --purple:#9b6dff;
+  --text:#f7f4ff;
+  --muted:#aaa4bd;
+  --border:#302444;
 }
 * { box-sizing:border-box; }
 body {
   margin:0;
-  background:radial-gradient(ellipse at top,#21133d 0%,var(--bg) 55%);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:radial-gradient(ellipse at 50% 0%,#281344 0%,var(--bg) 55%);
   color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
   min-height:100vh;
 }
 header {
-  padding:24px 18px;
-  text-align:center;
+  padding:22px 18px;
   border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
 }
-.logo { font-size:28px;font-weight:800;letter-spacing:-1px; }
+.logo { font-size:20px;font-weight:800;letter-spacing:-.5px; }
 .logo span { color:var(--purple); }
-header p { color:var(--muted);margin-bottom:0; }
-main { width:min(720px,92%);margin:32px auto 60px; }
-h1 { font-size:clamp(27px,6vw,38px);line-height:1.15; }
-h1 span { color:var(--light); }
-.intro { color:var(--muted);line-height:1.6; }
+.pill {
+  font-size:11px;
+  padding:7px 10px;
+  border:1px solid #62419a;
+  border-radius:30px;
+  color:#d9c7ff;
+  background:#211433;
+}
+main { max-width:760px;margin:auto;padding:38px 18px 60px; }
+.tag {
+  display:inline-block;
+  color:#d5bfff;
+  background:#211433;
+  border:1px solid #4c3173;
+  border-radius:30px;
+  padding:8px 12px;
+  font-size:12px;
+}
+h1 {
+  font-size:clamp(34px,8vw,54px);
+  line-height:1.08;
+  letter-spacing:-1.7px;
+  margin:20px 0 14px;
+}
+h1 span {
+  background:linear-gradient(90deg,#c7a7ff,#8c5bff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.intro { color:var(--muted);line-height:1.7;font-size:15px; }
 .panel {
-  background:rgba(20,16,32,.96);
+  margin-top:28px;
+  padding:22px;
+  background:rgba(19,16,32,.94);
   border:1px solid var(--border);
-  border-radius:18px;
-  padding:20px;
-  margin-top:22px;
-  box-shadow:0 12px 40px #0004;
+  border-radius:20px;
+  box-shadow:0 15px 55px #0003;
 }
 label { display:block;font-weight:700;margin-bottom:12px; }
 textarea {
-  display:block;width:100%;min-height:165px;
-  resize:vertical;padding:15px;border-radius:12px;
-  border:1px solid #493664;background:#0c0915;
-  color:white;font:16px/1.5 Arial,sans-serif;
+  width:100%;
+  min-height:165px;
+  resize:vertical;
+  background:#0b0912;
+  border:1px solid #3b2d50;
+  border-radius:13px;
+  color:white;
+  padding:15px;
+  font:inherit;
+  line-height:1.6;
+  outline:none;
 }
-textarea:focus { outline:2px solid var(--purple); }
+textarea:focus { border-color:var(--purple); }
+textarea::placeholder { color:#777087; }
 .actions { display:flex;gap:10px;flex-wrap:wrap;margin-top:14px; }
 button {
-  border:0;border-radius:10px;padding:13px 18px;
-  font-weight:700;font-size:15px;cursor:pointer;
+  border:0;
+  border-radius:12px;
+  padding:13px 17px;
+  font:inherit;
+  font-weight:750;
+  cursor:pointer;
 }
-.primary { background:var(--purple);color:white;flex:1; }
-.primary:hover { background:#7c3aed; }
-.secondary { background:#292036;color:#eee7ff; }
-button:focus-visible { outline:2px solid white;outline-offset:3px; }
-.hint { color:var(--muted);font-size:13px;line-height:1.5; }
-#result { display:none; }
-.result-head { display:flex;gap:12px;align-items:center; }
-.symbol { font-size:28px; }
-.result-head h2 { font-size:23px;margin:0; }
-.level { color:var(--light);font-weight:700;margin-top:7px; }
-.section { border-top:1px solid var(--border);padding-top:15px;margin-top:18px; }
-.section h3 { font-size:16px;margin:0 0 8px; }
-.section p,.section li { color:#ddd6eb;line-height:1.6; }
-.section ul { padding-left:21px;margin:8px 0; }
-.disclaimer { background:#20182d;padding:13px;border-radius:10px;color:var(--muted);font-size:13px;line-height:1.5; }
-footer { text-align:center;color:var(--muted);font-size:13px;padding:25px; }
+.primary {
+  flex:1;
+  min-width:180px;
+  color:white;
+  background:linear-gradient(100deg,#8951f5,#ad72ff);
+}
+.secondary {
+  color:#ddd2f5;
+  background:#211a30;
+  border:1px solid var(--border);
+}
+button:active { transform:scale(.98); }
+.hint { color:var(--muted);font-size:12px;line-height:1.6;margin-top:12px; }
+#result { display:none;margin-top:20px; }
+.result-head {
+  padding:18px;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:#171126;
+}
+.result-head h2 { margin:0 0 8px;font-size:20px; }
+.result-head p { margin:0;color:var(--muted);line-height:1.6; }
+.section-title { margin:22px 0 12px;font-size:15px; }
+.item {
+  border:1px solid var(--border);
+  background:#100d1b;
+  border-radius:12px;
+  padding:14px;
+  margin-top:9px;
+  line-height:1.5;
+  font-size:14px;
+}
+.item strong { display:block;margin-bottom:4px; }
+.item p { margin:0;color:var(--muted); }
+.advice {
+  margin-top:15px;
+  padding:16px;
+  border-radius:13px;
+  background:#211633;
+  border:1px solid #503372;
+  line-height:1.6;
+  font-size:14px;
+}
+footer {
+  text-align:center;
+  padding:22px 18px;
+  border-top:1px solid var(--border);
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
+}
+@media(max-width:420px) {
+  main { padding-top:28px; }
+  .panel { padding:16px; }
+  header { padding:18px 14px; }
+}
 </style>
 </head>
 <body>
 <header>
   <div class="logo">VraiCheck <span>AI</span></div>
-  <p>Les bons réflexes face aux messages suspects.</p>
+  <div class="pill">✦ SÉCURITÉ NUMÉRIQUE</div>
 </header>
 
 <main>
-  <h1>Un message te paraît bizarre ?<br><span>Vérifions ses indices.</span></h1>
-  <p class="intro">Colle un SMS, un e-mail ou un message reçu. VraiCheck AI recherche des signes fréquents de fraude et t'explique quoi vérifier.</p>
+  <div class="tag">✦ Votre assistant anti-arnaques</div>
+  <h1>Un message douteux ?<br><span>Vérifiez avant d'agir.</span></h1>
+  <p class="intro">
+    Analysez un SMS, un e-mail ou un message suspect.
+    Repérez les signaux d'alerte et découvrez les bons réflexes
+    pour protéger vos informations.
+  </p>
 
   <section class="panel">
-    <label for="message">Le message à vérifier</label>
-    <textarea id="message" maxlength="10000" placeholder="Colle ici le message que tu as reçu..."></textarea>
+    <label for="message">Collez votre message ici</label>
+    <textarea id="message" maxlength="10000"
+      placeholder="Ex. : Votre compte sera bloqué aujourd'hui. Cliquez sur ce lien pour confirmer vos informations..."></textarea>
     <div class="actions">
-      <button class="primary" id="analyze">Analyser le message</button>
+      <button class="primary" id="analyze">✦ Analyser le message</button>
       <button class="secondary" id="clear">Effacer</button>
     </div>
-    <p class="hint">Conseil : ne colle pas de mot de passe, de code de sécurité ni d'autres informations personnelles.</p>
-  </section>
-
-  <section class="panel" id="result" aria-live="polite" tabindex="-1">
-    <div class="result-head">
-      <div class="symbol" id="symbol">🔎</div>
-      <div>
-        <h2 id="resultTitle">Résultat</h2>
-        <div class="level" id="level"></div>
+    <p class="hint">🔒 L'analyse est réalisée dans votre navigateur. Évitez de coller des informations personnelles.</p>
+    <div id="result" aria-live="polite">
+      <div class="result-head">
+        <h2 id="verdict"></h2>
+        <p id="summary"></p>
       </div>
+      <h3 class="section-title">Indices détectés</h3>
+      <div id="indicators"></div>
+      <h3 class="section-title">Nos conseils</h3>
+      <div class="advice" id="advice"></div>
     </div>
-    <div class="section">
-      <h3>Pourquoi ce résultat ?</h3>
-      <ul id="reasons"></ul>
-    </div>
-    <div class="section">
-      <h3>Ce que tu devrais vérifier</h3>
-      <ul id="checks"></ul>
-    </div>
-    <div class="section">
-      <h3>Notre conseil</h3>
-      <p id="advice"></p>
-    </div>
-    <p class="disclaimer">Cette analyse automatique repère des indices, mais ne prouve pas qu'un message est frauduleux ou fiable. Un message bien rédigé peut être une arnaque, et un message suspect peut avoir une explication légitime.</p>
   </section>
 </main>
 
-<footer>VraiCheck AI · Réfléchir avant de cliquer.</footer>
+<footer>
+  <strong>VraiCheck AI</strong> · Vérifiez avant de faire confiance.<br>
+  Cet outil fournit une première analyse indicative et peut se tromper.
+  Un résultat rassurant ne garantit pas qu'un message soit authentique.
+</footer>
 
 <script>
-const $ = id => document.getElementById(id);
+const message = document.getElementById("message");
+const result = document.getElementById("result");
+const verdict = document.getElementById("verdict");
+const summary = document.getElementById("summary");
+const indicators = document.getElementById("indicators");
+const advice = document.getElementById("advice");
+
+document.getElementById("analyze").addEventListener("click", analyzeMessage);
+document.getElementById("clear").addEventListener("click", () => {
+  message.value = "";
+  result.style.display = "none";
+  message.focus();
+});
 
 function analyzeMessage() {
-  const original = $("message").value.trim();
-  if (!original) {
-    $("message").focus();
-    alert("Colle d'abord le message que tu veux vérifier.");
+  const text = message.value.trim();
+  if (!text) {
+    message.focus();
+    alert("Collez d'abord un message à analyser.");
     return;
   }
 
-  const text = original.toLocaleLowerCase("fr");
-  let score = 0;
-  const reasons = [];
-  const checks = [];
+  const t = text.toLowerCase();
+  const found = [];
+  const add = (title, explanation) => found.push({title, explanation});
 
-  function detect(words, points, reason, check) {
-    if (words.some(word => text.includes(word))) {
-      score += points;
-      reasons.push(reason);
-      checks.push(check);
-    }
+  if (/(urgent|immédiatement|immediatement|aujourd'hui|dans \d+ heures|dernière chance|derniere chance|sans délai|sans delai)/i.test(t)) {
+    add("Sentiment d'urgence", "Le message pousse à agir rapidement, ce qui peut empêcher de vérifier la demande.");
   }
 
-  detect(
-    ["urgent", "immédiatement", "aujourd'hui", "dernière chance",
-     "dans les 24 heures", "sans délai", "dernier avertissement",
-     "sous 24h", "rapidement", "expirera"],
-    2,
-    "Le message crée un sentiment d'urgence qui peut pousser à agir sans réfléchir.",
-    "Prends le temps de vérifier la demande par un canal officiel."
-  );
-
-  detect(
-    ["colis bloqué", "colis bloque", "frais de livraison",
-     "frais de douane", "frais d'expédition", "frais supplementaires",
-     "frais supplémentaires", "débloquer votre colis", "debloquer votre colis",
-     "relancer l'expédition", "relancer l'expedition"],
-    2,
-    "Le message évoque un colis bloqué ou des frais supplémentaires.",
-    "Consulte toi-même le suivi sur le site ou dans l'application officielle du transporteur."
-  );
-detect(
-  ["1,99", "veuillez régler", "relancer l'expédition", "retour du colis"],
-  2,
-  "Le message demande des frais pour relancer une livraison.",
-  "Vérifie le suivi sur le site officiel du transporteur avant tout paiement."
-);
-  detect(
-    ["payer", "paiement", "régler", "regler", "virement",
-     "carte bancaire", "1,99", "1.99", "remboursement de frais",
-     "confirmer le paiement"],
-    2,
-    "Le message demande ou évoque un paiement. Une somme faible ne garantit pas que la demande est légitime.",
-    "Ne paie pas depuis le message. Vérifie les éventuels frais auprès de l'organisme concerné."
-  );
-
-  detect(
-    ["mot de passe", "code de sécurité", "code de securite",
-     "code sms", "confirmez votre identité", "confirmez votre identite",
-     "identifiants", "numéro de carte", "numero de carte",
-     "cryptogramme", "validez votre compte"],
-    3,
-    "Le message semble demander des informations sensibles ou une vérification de compte.",
-    "Ne communique jamais un mot de passe ou un code de validation reçu par SMS."
-  );
-
-  detect(
-    ["compte suspendu", "compte bloqué", "compte bloque",
-     "sera fermé", "sera ferme", "accès suspendu", "acces suspendu",
-     "compte désactivé", "compte desactive", "sanction",
-     "poursuites judiciaires"],
-    2,
-    "Le message évoque un blocage de compte ou des conséquences inquiétantes.",
-    "Ouvre toi-même l'application ou le site officiel pour vérifier l'état de ton compte."
-  );
-
-  detect(
-    ["vous avez gagné", "vous avez gagne", "gagnant",
-     "gain exceptionnel", "prix à réclamer", "prix a reclamer",
-     "réclamez votre prix", "reclamez votre prix",
-     "cadeau gratuit", "lot exceptionnel"],
-    2,
-    "Le message annonce un gain ou un cadeau qui peut servir d'appât.",
-    "Vérifie le concours auprès de l'organisateur officiel. Méfie-toi si un paiement est exigé pour recevoir un gain."
-  );
-
-  detect(
-    ["cliquez ici", "clique ici", "lien de paiement",
-     "ouvrir le lien", "suivez ce lien", "bit.ly",
-     "tinyurl", "cutt.ly", "t.co/"],
-    1,
-    "Le message incite à ouvrir un lien ou utilise un raccourcisseur de lien.",
-    "Ne te fie pas à l'apparence du lien. Saisis toi-même l'adresse officielle dans ton navigateur."
-  );
-
-  detect(
-    ["votre banque", "banque", "service antifraude",
-     "activité suspecte", "activite suspecte",
-     "virement bloqué", "virement bloque", "opération inhabituelle",
-     "operation inhabituelle"],
-    2,
-    "Le message prétend provenir d'une banque ou évoque une activité financière suspecte.",
-    "Contacte ta banque avec le numéro de ta carte bancaire ou celui de son site officiel, jamais celui d'un message suspect."
-  );
-
-  detect(
-    ["impôts", "impots", "amende", "police",
-     "gendarmerie", "huissier", "tribunal"],
-    1,
-    "Le message semble invoquer une administration ou une autorité. Ce contexte ne suffit pas à prouver une fraude.",
-    "Vérifie toute demande directement auprès de l'administration concernée, en utilisant son site officiel."
-  );
-
-  if (reasons.length === 0) {
-    reasons.push("Aucun des indices courants reconnus par cette version n'a été détecté. Cela ne signifie pas que le message est fiable.");
-    checks.push("Vérifie l'expéditeur, l'adresse exacte des liens et toute demande d'argent ou d'information personnelle.");
-    checks.push("Si le message prétend venir d'une entreprise, contacte-la par son application ou son site officiel.");
+  if (/(cliquez|cliquer|lien ci-dessous|lien suivant|connectez-vous|connectez vous|page de paiement)/i.test(t)) {
+    add("Invitation à cliquer", "Un lien inattendu peut conduire vers un faux site. Vérifiez l'adresse avant toute action.");
   }
 
-  let title, level, symbol, advice;
+  if (/(mot de passe|identifiants|code de validation|code sms|confirmer vos informations|informations bancaires|coordonnées bancaires)/i.test(t)) {
+    add("Demande d'informations sensibles", "Un message qui réclame des identifiants ou des codes mérite une grande prudence.");
+  }
 
-  if (score >= 6) {
-    title = "Plusieurs indices inquiétants";
-    level = "Niveau de vigilance : élevé";
-    symbol = "🚨";
-    advice = "Risque élevé :ne clique sur aucun lien et ne paie rien. Vérifie bien la demande en ouvrant le site ou l'application officielle de l'organisme concerné.";
-  } else if (score >= 3) {
-    title = "Message à vérifier avec prudence";
-    level = "Niveau de vigilance : renforcé";
-    symbol = "⚠️";
-    advice = "Certains éléments méritent une vérification. Ne clique sur aucun lien et ne transmets aucune information sensible avant d'avoir confirmé l'origine du message.";
+  if (/(compte.*(bloqué|bloque|suspendu|suspend|fermé|ferme)|blocage de votre compte)/i.test(t)) {
+    add("Menace de blocage du compte", "Les fraudeurs peuvent menacer de suspendre un compte pour vous faire réagir.");
+  }
+
+  if (/(colis bloqué|colis bloque|frais de livraison|frais de douane|frais supplémentaires|frais supplementaires|relancer l'expédition|relancer l'expedition|retour du colis|1,99\s*€)/i.test(t)) {
+    add("Frais de livraison inattendus", "Les faux SMS de livraison demandent souvent de petits paiements. Vérifiez directement sur le site officiel du transporteur.");
+  }
+
+  if (/(gagné|gagne|gagnant|cadeau gratuit|récompense|recompense|lot exceptionnel|vous avez été sélectionné|vous avez ete selectionne)/i.test(t)) {
+    add("Promesse de gain ou de cadeau", "Une récompense inattendue peut servir d'appât pour obtenir vos données ou votre argent.");
+  }
+
+  if (/(virement|payer|paiement|régler|regler|transférer de l'argent|transferer de l'argent)/i.test(t)) {
+    add("Demande de paiement", "Vérifiez la raison de la demande et l'identité du destinataire par un canal indépendant.");
+  }
+
+  if (/(https?:\/\/|www\.)/i.test(t)) {
+    add("Adresse web présente", "La présence d'un lien ne prouve pas une arnaque, mais vérifiez soigneusement le nom de domaine sans cliquer.");
+  }
+
+  result.style.display = "block";
+  indicators.replaceChildren();
+
+  if (found.length >= 3) {
+    verdict.textContent = "⚠️ Plusieurs indices inquiétants";
+    summary.textContent = "Ce message présente plusieurs signaux d'alerte. Ne faites rien avant d'avoir vérifié son origine.";
+  } else if (found.length > 0) {
+    verdict.textContent = "🔎 Vérification recommandée";
+    summary.textContent = "Certains éléments méritent votre attention. Ils ne prouvent pas à eux seuls qu'il s'agit d'une arnaque.";
   } else {
-    title = "Vérification recommandée";
-    level = "Des indices ont été repérés ou restent à vérifier";
-    symbol = "🔎";
-    advice = "Le nombre d'indices détectés ne permet pas de confirmer l'authenticité du message. Vérifie l'expéditeur et la demande sur un canal officiel.";
+    verdict.textContent = "🔎 Restez vigilant";
+    summary.textContent = "Aucun des indices courants recherchés n'a été détecté. Cela ne garantit pas que le message soit fiable.";
   }
 
-  $("symbol").textContent = symbol;
-  $("resultTitle").textContent = title;
-  $("level").textContent = level;
+  if (found.length === 0) {
+    const item = document.createElement("div");
+    item.className = "item";
+    item.textContent = "Aucun indice courant détecté par cette analyse automatique.";
+    indicators.appendChild(item);
+  }
 
-  const reasonList = $("reasons");
-  reasonList.replaceChildren();
-  reasons.forEach(reason => {
-    const li = document.createElement("li");
-    li.textContent = reason;
-    reasonList.appendChild(li);
+  found.forEach(entry => {
+    const item = document.createElement("div");
+    item.className = "item";
+    const title = document.createElement("strong");
+    title.textContent = "⚠️ " + entry.title;
+    const detail = document.createElement("p");
+    detail.textContent = entry.explanation;
+    item.append(title, detail);
+    indicators.appendChild(item);
   });
 
-  const checkList = $("checks");
-  checkList.replaceChildren();
-  checks.forEach(check => {
-    const li = document.createElement("li");
-    li.textContent = check;
-    checkList.appendChild(li);
-  });
-
-  $("advice").textContent = advice;
-  $("result").style.display = "block";
-  $("result").focus();
+  advice.textContent = "Ne cliquez pas sur les liens et ne transmettez aucun mot de passe ou code de validation. Vérifiez la demande depuis le site, l'application ou le numéro officiel de l'organisme concerné.";
+  result.scrollIntoView({behavior:"smooth", block:"start"});
 }
-
-$("analyze").addEventListener("click", analyzeMessage);
-$("clear").addEventListener("click", () => {
-  $("message").value = "";
-  $("result").style.display = "none";
-  $("message").focus();
-});
-$("message").addEventListener("keydown", event => {
-  if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
-    analyzeMessage();
-  }
-});
 </script>
 </body>
 </html>
+
