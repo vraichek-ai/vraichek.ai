@@ -164,7 +164,12 @@ function analyzeMessage() {
     "Le message évoque un colis bloqué ou des frais supplémentaires.",
     "Consulte toi-même le suivi sur le site ou dans l'application officielle du transporteur."
   );
-
+detect(
+  ["1,99", "veuillez régler", "relancer l'expédition", "retour du colis"],
+  2,
+  "Le message demande des frais pour relancer une livraison.",
+  "Vérifie le suivi sur le site officiel du transporteur avant tout paiement."
+);
   detect(
     ["payer", "paiement", "régler", "regler", "virement",
      "carte bancaire", "1,99", "1.99", "remboursement de frais",
